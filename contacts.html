@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Information</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    text-align: center;
+    background: #f2f2f2;
+    padding-top: 80px;
+}
+
+/* HEADER */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #f5f5dc;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+  z-index: 2000;
+}
+
+.back-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.back-btn-header {
+  text-decoration: none;
+  color: black;
+  font-size: 22px;
+}
+
+.title-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ac1896;
+}
+
+/* TITLE */
+.header {
+    width: 100%;
+    padding: 25px 0;
+    background: white;
+    font-size: 32px;
+    font-weight: bold;
+    border-bottom: 4px solid #d100ff;
+    border-top: 4px solid #ff008c;
+}
+
+h2 {
+    margin-top: 35px;
+    font-size: 22px;
+}
+
+/* BOXES */
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 35px;
+}
+
+.box {
+    width: 130px;
+    height: 130px;
+    background: linear-gradient(135deg, #ff00aa, #6200ff);
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: 0.3s;
+    padding-top: 10px;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+.box img {
+    width: 55px;
+    height: 55px;
+    margin-top: 10px;
+}
+
+.box p {
+    margin-top: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+/* FOOTER */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f5f5dc;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #ac1896;
+  font-size: 14px;
+  text-align: center;
+}
+
+.bottom-nav i {
+  font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="back-header">
+    <a href="index.html" class="back-btn-header">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <span class="title-text">ANU 3D Printing</span>
+  </div>
+</header>
+
+<div class="header">
+    CONTACT INFORMATION
+</div>
+
+<h2>Hi, how can I help you?</h2>
+
+<!-- CONTACT -->
+<div class="row">
+
+  <!-- CALL -->
+  <div class="box" onclick="callNow()">
+    <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png">
+    <p>Call</p>
+  </div>
+
+  <!-- WHATSAPP -->
+  <div class="box" onclick="openWhatsApp()">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+    <p>WhatsApp</p>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <!-- INSTAGRAM -->
+  <div class="box" onclick="openInstagram()">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+    <p>Instagram</p>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="box" onclick="sendEmail()">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
+    <p>Email</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="bottom-nav">
+  <a href="index.html"><i class="fa-solid fa-house"></i><br>Home</a>
+  <a href="profile.html"><i class="fa-solid fa-user"></i><br>Profile</a>
+  <a href="index.html"><i class="fa-solid fa-magnifying-glass"></i><br>Search</a>
+  <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i><br>Cart</a>
+  <a href="contacts.html"><i class="fa-solid fa-headset"></i><br>Help</a>
+</div>
+
+<script>
+
+// CALL
+function callNow(){
+  window.location.href = "tel:9444210661";
+}
+
+// WHATSAPP (Hi + Welcome message)
+function openWhatsApp(){
+  let phone = "919444210661";
+  let message = "Hi,Welcome to ANU 3D Printing!";
+  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+  window.open(url, "_blank");
+}
+
+// INSTAGRAM
+function openInstagram(){
+  window.open("https://www.instagram.com/anu.3dprints/", "_blank");
+}
+
+// EMAIL
+function sendEmail(){
+  window.location.href = "mailto:anu.3dprints@gmail.com";
+}
+
+</script>
+
+</body>
+</html>

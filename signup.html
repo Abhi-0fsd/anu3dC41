@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family: Arial;
+}
+
+/* HEADER */
+.back-header{
+  background:#f5f5dc;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.left-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.back-btn{
+  color:#201d1f;
+  font-size:20px;
+  text-decoration:none;
+}
+
+.cart-link{
+  position:relative;
+  text-decoration:none;
+  color:#ac1896;
+  font-size:25px;
+}
+
+.cart-count{
+  position:absolute;
+  top:-5px;
+  right:-8px;
+  background:red;
+  color:white;
+  font-size:12px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* MAIN */
+.main{
+  display:flex;
+  justify-content:center;
+  padding:40px;
+}
+
+/* BOX */
+.login-box{
+  width:100%;
+  max-width:400px;
+  background:#f5f5dc;
+  border-radius:8px;
+  border:1px solid #ddd;
+  overflow:hidden;
+}
+
+.login-title{
+  background:#ac1896;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-weight:bold;
+}
+
+/* FORM */
+.container{
+  padding:25px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+.form-group label{
+  font-size:14px;
+  font-weight:bold;
+  display:block;
+  margin-bottom:5px;
+}
+
+.input-box{
+  position:relative;
+}
+
+.input-box input{
+  width:100%;
+  padding:10px 35px 10px 10px;
+  border:1px solid #a6a6a6;
+  border-radius:4px;
+}
+
+.form-group input{
+  width:100%;
+  padding:10px;
+  border:1px solid #a6a6a6;
+  border-radius:4px;
+}
+
+.form-group input:focus{
+  border-color:#ac1896;
+  box-shadow:0 0 3px #ac1896;
+  outline:none;
+}
+
+/* EYE */
+.toggle-eye{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:#666;
+}
+
+.toggle-eye:hover{
+  color:#ac1896;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  color:white;
+  font-weight:bold;
+  border-radius:6px;
+  margin-top:10px;
+}
+
+button:disabled{
+  background:#ccc;
+  cursor:not-allowed;
+}
+
+button:not(:disabled){
+  background:#ac1896;
+  cursor:pointer;
+}
+
+button:hover:not(:disabled){
+  background:#8f1277;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:20px;
+  text-align:center;
+}
+
+.link{
+  color:#ac1896;
+  text-decoration:none;
+}
+
+/* NAV */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#f5f5dc;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+}
+
+.bottom-nav a{
+  text-decoration:none;
+  color:#ac1896;
+  font-size:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.bottom-nav i{
+  font-size:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="back-header">
+  <div class="left-header">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <img src="https://i.postimg.cc/R05VcqPF/MAIN-LOGO.jpg" width="40">
+    <b style="color:#ac1896;">ANU 3D Printing</b>
+  </div>
+
+  <a href="cart.html" class="cart-link">
+    🛒 <span class="cart-count">0</span>
+  </a>
+</header>
+
+<div class="main">
+  <div class="login-box">
+
+    <div class="login-title">Create Account</div>
+
+    <div class="container">
+
+      <!-- NAME -->
+      <div class="form-group">
+        <label>Your name</label>
+        <input type="text" id="name" placeholder="First and last name" oninput="checkSignup()">
+      </div>
+
+      <!-- PHONE -->
+      <div class="form-group">
+        <label>Mobile number</label>
+        <input type="text" id="phone" placeholder="10-digit number"
+        oninput="this.value=this.value.replace(/[^0-9]/g,''); checkSignup();">
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter email" oninput="checkSignup()">
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-box">
+          <input type="password" id="password" placeholder="Enter password" oninput="checkSignup()">
+          <i class="fa fa-eye toggle-eye" onclick="togglePassword('password', this)"></i>
+        </div>
+      </div>
+
+      <!-- CONFIRM PASSWORD -->
+      <div class="form-group">
+        <label>Re-enter password</label>
+        <div class="input-box">
+          <input type="password" id="confirmPassword" placeholder="Re-enter password" oninput="checkSignup()">
+          <i class="fa fa-eye toggle-eye" onclick="togglePassword('confirmPassword', this)"></i>
+        </div>
+      </div>
+
+      <!-- BUTTON -->
+      <button id="signupBtn" onclick="signup()" disabled>
+        Create your account
+      </button>
+
+      <div class="footer">
+        Already have an account?
+        <a href="login.html" class="link">Log in</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="bottom-nav">
+  <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+  <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
+  <a href="index.html"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+  <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+  <a href="contacts.html"><i class="fa-solid fa-headset"></i>Help</a>
+</div>
+
+<script>
+const nameInput = document.getElementById("name");
+const phoneInput = document.getElementById("phone");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+const signupBtn = document.getElementById("signupBtn");
+
+// SHOW / HIDE PASSWORD
+function togglePassword(id, icon){
+
+  let input = document.getElementById(id);
+
+  if(input.type === "password"){
+    input.type = "text";
+  }else{
+    input.type = "password";
+  }
+
+  icon.classList.toggle("fa-eye-slash");
+}
+
+// VALIDATION
+function checkSignup(){
+
+  let name = nameInput.value.trim();
+  let phone = phoneInput.value.trim();
+  let email = emailInput.value.trim();
+  let password = passwordInput.value;
+  let confirmPassword = confirmPasswordInput.value;
+
+  let emailValid =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  let phoneValid =
+  /^[0-9]{10}$/.test(phone);
+
+  let match =
+  password !== "" &&
+  password === confirmPassword;
+
+  signupBtn.disabled =
+  !(name && phoneValid && emailValid && match);
+}
+
+// SIGNUP
+function signup(){
+
+  let user = {
+    name: nameInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    email: emailInput.value.trim(),
+    password: passwordInput.value
+  };
+
+  // CHECK EXISTING USER
+  let oldUser = JSON.parse(localStorage.getItem("user"));
+
+  if(oldUser && oldUser.email === user.email){
+    alert("Email already registered ⚠️");
+    return;
+  }
+
+  // SAVE USER
+  localStorage.setItem("user", JSON.stringify(user));
+
+  alert("Signup successful ✅");
+
+  // GO LOGIN
+  window.location.href = "login.html";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OTP Login</title>
+
+<style>
+body{
+  font-family: Arial;
+  background:#f2f2f2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.container{
+  background:white;
+  width:320px;
+  padding:25px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.input-box{
+  display:flex;
+  margin-top:15px;
+}
+
+.input-box span{
+  background:#eee;
+  padding:10px;
+  border:1px solid #ccc;
+  border-right:none;
+}
+
+.input-box input{
+  flex:1;
+  padding:10px;
+  border:1px solid #ccc;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  background:#18b318;
+  color:white;
+  font-size:16px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+#otpSection{
+  display:none;
+  margin-top:20px;
+}
+
+.otp-box input{
+  width:40px;
+  height:40px;
+  margin:5px;
+  text-align:center;
+  font-size:18px;
+}
+
+#timer{
+  margin-top:10px;
+  color:red;
+  font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>OTP Login</h2>
+
+<div class="input-box">
+<span>+91</span>
+<input type="text" id="phone" placeholder="Phone Number">
+</div>
+
+<button onclick="sendOTP()">Send OTP</button>
+
+<!-- OTP Section -->
+<div id="otpSection">
+
+<p>OTP sent to your mobile</p>
+<b id="showNumber"></b>
+
+<div class="otp-box">
+<input maxlength="1">
+<input maxlength="1">
+<input maxlength="1">
+<input maxlength="1">
+</div>
+
+<button onclick="verifyOTP()">Verify OTP</button>
+
+<p id="timer"></p>
+<button id="resendBtn" onclick="sendOTP()" disabled>Resend OTP</button>
+
+</div>
+
+</div>
+
+<script>
+
+let otp="";
+let countdown;
+
+function sendOTP(){
+
+let phone=document.getElementById("phone").value;
+
+if(phone.length<10){
+alert("Enter valid phone number");
+return;
+}
+
+/* Generate OTP internally */
+otp=Math.floor(1000 + Math.random() * 9000);
+
+console.log("Demo OTP:", otp); // only console for testing
+
+document.getElementById("otpSection").style.display="block";
+document.getElementById("showNumber").innerText="+91 "+phone;
+
+startTimer(1800); // 30 minutes = 1800 seconds
+}
+
+function startTimer(seconds){
+
+clearInterval(countdown);
+document.getElementById("resendBtn").disabled=true;
+
+countdown=setInterval(function(){
+
+let min=Math.floor(seconds/60);
+let sec=seconds%60;
+
+document.getElementById("timer").innerText=
+"Resend OTP in "+min+"m "+sec+"s";
+
+seconds--;
+
+if(seconds<0){
+clearInterval(countdown);
+document.getElementById("timer").innerText="You can resend OTP now";
+document.getElementById("resendBtn").disabled=false;
+}
+
+},1000);
+}
+
+function verifyOTP(){
+
+let entered="";
+document.querySelectorAll(".otp-box input").forEach(i=>{
+entered+=i.value;
+});
+
+if(entered==otp){
+alert("Login Successful ✅");
+}else{
+alert("Wrong OTP ❌");
+}
+}
+
+</script>
+
+</body>
+</html>

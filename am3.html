@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pay Now - QR Code</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom,white);
+
+  /* ✅ FIX SCROLL */
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* HEADER */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #f5f5dc;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+  z-index: 2000;
+}
+
+.back-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-btn {
+  color: #201d1f;
+  font-size: 22px;
+  text-decoration: none;
+}
+
+.title-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ac1896;
+}
+
+/* MAIN BOX */
+.box {
+  max-width: 600px;
+  margin: auto;
+  background: #f5f5dc;
+  padding: 125px;
+  border-radius: 10px;
+}
+
+/* INPUT */
+.form-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* CITY + STATE */
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+.row input {
+  flex: 1;
+}
+
+/* BUTTON CENTER */
+button {
+  display: block;
+  margin: 30px auto;
+  padding: 14px 40px;
+  background-color: #ac1896;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 300px;
+}
+
+button:hover {
+  background-color: #8e137d;
+}
+
+/* QR */
+.qr {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.qr img {
+  width: 220px;
+  height: 220px;
+}
+
+.details {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #444;
+  text-align: center;
+}
+
+/* FOOTER */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f5f5dc;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #ac1896;
+  font-size: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bottom-nav i {
+  font-size: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="back-header">
+    <a href="amount3.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="https://i.postimg.cc/R05VcqPF/MAIN-LOGO.jpg" style="width:40px; height:40px;">
+      <span class="title-text">ANU 3D Printing</span>
+    </div>
+  </div>
+</header>
+
+<div class="box">
+
+<h2 style="text-align:center; color:#ac1896;">
+  Pay for: <span id="prodName">Product</span>
+</h2>
+<div class="form-group">
+<input type="text" id="phoneNumber" placeholder="Phone Number (10 digits)" maxlength="10">
+</div>
+
+<div class="form-group">
+<input type="text" id="fullName" placeholder="Full Name">
+</div>
+
+<div class="form-group">
+<input type="text" id="addr1" placeholder="Address Line 1">
+</div>
+
+<div class="form-group">
+<input type="text" id="addr2" placeholder="Address Line 2">
+</div>
+
+<div class="form-group row">
+<input type="text" id="city" placeholder="City">
+<input type="text" id="state" placeholder="State">
+</div>
+
+<div class="form-group">
+<input type="text" id="pincode" placeholder="Pincode (6 digits)" maxlength="6">
+</div>
+
+
+<button onclick="generateQR()">Continue</button>
+
+<div class="qr" id="qrBox" style="display:none;">
+  <a id="upiLink">
+    <img id="qrImg">
+  </a>
+
+  <div class="details" id="info"></div>
+
+  <button id="payBtn">Pay Now</button>
+</div>
+
+</div>
+
+<footer>
+<div class="bottom-nav">
+  <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+  <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
+  <a href="search.html"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+  <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+  <a href="contacts.html"><i class="fa-solid fa-headset"></i>Help</a>
+</div>
+</footer>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const productName = params.get('name') || "Engraved Photo Frame";
+const productAmount = params.get('price') || "450";
+const receiverUPI = "naravind2604@oksbi";
+
+document.getElementById("prodName").innerText = productName;
+
+function generateQR() {
+  const phone = document.getElementById("phoneNumber").value.trim();
+  const name = document.getElementById("fullName").value.trim() || "Customer";
+  const addr1 = document.getElementById("addr1").value.trim();
+      const addr2 = document.getElementById("addr2").value.trim();
+      const city = document.getElementById("city").value.trim();
+      const state = document.getElementById("state").value.trim();
+      const pincode = document.getElementById("pincode").value.trim();
+
+      if (!phone || !name || !addr1 || !addr2 || !city || !state || !pincode) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+  if (!/^\d{10}$/.test(phone)) {
+    alert("Enter valid 10-digit phone number");
+    return;
+  }
+
+  const upiLink = `upi://pay?pa=${receiverUPI}&pn=${name}&am=${productAmount}&cu=INR`;
+
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiLink)}`;
+  document.getElementById("qrImg").src = qrUrl;
+
+  document.getElementById("upiLink").href = upiLink;
+
+  document.getElementById("payBtn").onclick = () => {
+    window.location.href = upiLink;
+  };
+
+  document.getElementById("info").innerHTML = `
+    <strong>Payment for:</strong> ${productName}<br>
+    Amount: ₹${productAmount}<br>
+    Name: ${name}<br>
+    Phone: ${phone}
+  `;
+
+  document.getElementById("qrBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>

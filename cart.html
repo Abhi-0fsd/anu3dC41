@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Cart - ShopEasy</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    /* HEADER */
+    header {
+      background: #f5f5dc;
+      padding: 15px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    }
+
+    .back-header {
+      display: flex;
+      align-items: center;
+      gap: 20px; /* spacing */
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: #201d1f; /* 🔥 arrow color */
+      font-size: 20px;
+    }
+
+    .title-text {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ac1896; /* 🔥 text color */
+    }
+
+    /* CART */
+    .cart-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .cart-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+    }
+
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+
+    .item-details {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .item-name {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .item-price {
+      margin-left: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: green;
+    }
+
+    .qty-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-box button {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: skyblue;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .remove-btn {
+      color: red;
+      cursor: pointer;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    .total-section {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .checkout-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 15px;
+      background: green;
+      color: white;
+      border: none;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      background: darkgreen;
+    }
+
+    /* FOOTER */
+    .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f5f5dc;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #ac1896;
+  font-size: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bottom-nav i {
+  font-size: 20px;
+}
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="back-header">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <!-- LOGO + TEXT -->
+  <div style="display:flex; align-items:center; gap:10px;">
+    
+    <!-- IMAGE ICON -->
+    <img src="https://i.postimg.cc/R05VcqPF/MAIN-LOGO.jpg" alt="Logo" style="width:40px; height:40px; object-fit:contain;">
+
+    <span class="title-text">ANU 3D Printing</span>
+  </div>
+</header><br>
+
+<div class="cart-container">
+  <div class="cart-title">Your Shopping Cart</div>
+
+  <div id="cartItems"></div>
+
+  <div class="total-section">
+    <div>Total:</div>
+    <div id="grandTotal">₹0</div>
+  </div>
+
+  <button class="checkout-btn">Proceed to Checkout</button>
+</div>
+
+<!-- FOOTER -->
+<div class="bottom-nav">
+  <a href="index.html">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+
+  <a href="profile.html">
+    <i class="fa-solid fa-user"></i>
+    Profile
+  </a>
+
+  <a href="index.html">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    Search
+  </a>
+
+  <a href="cart.html">
+    <i class="fa-solid fa-cart-shopping"></i>
+    Cart
+  </a>
+
+  <a href="contacts.html">
+    <i class="fa-solid fa-headset"></i>
+    Help
+  </a>
+</div>
+
+<script>
+function loadCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let container = document.getElementById("cartItems");
+  let total = 0;
+
+  container.innerHTML = "";
+
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
+
+    container.innerHTML += `
+      <div class="cart-item">
+        <div class="item-details">
+          <img src="https://i.postimg.cc/8PtjFrN2/Whats-App-Image.jpg">
+          <div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">₹${item.price}</div>
+          </div>
+        </div>
+
+        <div class="qty-box">
+          <button onclick="changeQty(${index}, -1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${index}, 1)">+</button>
+        </div>
+
+        <div class="remove-btn" onclick="removeItem(${index})">Remove</div>
+      </div>
+    `;
+  });
+
+  document.getElementById("grandTotal").innerText = "₹" + total;
+}
+
+function changeQty(i, change) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart[i].qty += change;
+
+  if (cart[i].qty <= 0) cart.splice(i, 1);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
+
+function removeItem(i) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.splice(i, 1);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
+
+document.addEventListener("DOMContentLoaded", loadCart);
+</script>
+
+</body>
+</html>

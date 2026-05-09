@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Name Stand</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#eef6ff;
+  padding-bottom: 55px; /* 🔥 IMPORTANT */
+
+}
+
+/* HEADER */
+header {
+  background: #f5f5dc;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+
+.back-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 🔥 important */
+}
+
+.left-header {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.back-btn {
+  text-decoration: none;
+  color: #201d1f;
+  font-size: 20px;
+}
+
+.title-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ac1896;
+}
+.cart-link {
+  position: relative;
+  padding: 5px;
+  margin-right: 1px;  /* 🔥 add this */
+  text-decoration: none;
+  color: #ac1896;
+  font-size: 25px;
+}
+
+.cart-count {
+  position: absolute;
+  top: -3px;
+  right: 8px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  border-radius: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* PAGE */
+.page-wrapper{
+  max-width:1800px;
+  margin:auto;
+  background:#fff;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 8px 25px rgba(0,0,0,.1);
+}
+
+.container{
+  display:flex;
+  gap:35px;
+}
+
+.left-section{
+  display:flex;
+  gap:18px;
+  width:55%;
+}
+
+.main-media{
+  width:92%;
+  height:800px;
+  border-radius:18px;
+  margin-left:80px;
+  box-shadow:10px 5px 15px rgba(0,0,0,.2);
+  object-fit:cover;
+}
+
+.right{ flex:5; }
+
+.product-title{
+  font-size:50px;
+  font-weight:bold;
+  margin-left: 25px;
+}
+
+.final-price{
+  font-size:40px;
+  font-weight:700;
+  color:#1b1a1b;
+  margin-left: 50px;
+}
+
+.sub-price-line{
+  font-size:25px;
+  margin-left: 50px;
+}
+
+.old-price{
+  text-decoration:line-through;
+  color:#777;
+}
+
+.discount{
+  color:#1fbf4a;
+  font-weight:bold;
+  margin-left:20px;
+  font-size:20px;
+}
+
+.features{
+  margin:20px 0;
+  font-size:18px;
+  line-height:1.8;
+  margin-left: 50px;
+}
+
+/* BUTTONS */
+.btn-row{
+  display:flex;
+  gap:20px;
+  margin-left: 10px;
+}
+
+.button{
+  width:180px;
+  padding:14px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  color:#fff;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+}
+
+.buy{ background:#ff9800; }
+.cart{ background:#1fbf4a; }
+
+/* FOOTER */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f5f5dc;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #ac1896;
+  font-size: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottom-nav i {
+  font-size: 20px;
+}
+
+@media(max-width:768px){
+  .container{ flex-direction:column; }
+  .left-section{ width:100%; }
+  .main-media{ width:100%; margin-left:0; height:auto; }
+
+  .btn-row{
+    flex-direction: row;         /* ✅ keep same row */
+    justify-content: center;     /* center align */
+    gap:10px;
+  }
+
+  .button{
+    width:45%;                  /* ✅ fit both buttons */
+    font-size:14px;
+    padding:12px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="back-header">
+
+    <!-- LEFT -->
+    <div class="left-header">
+      <a href="index.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src="https://i.postimg.cc/R05VcqPF/MAIN-LOGO.jpg"
+             style="width:40px; height:40px;">
+        <span class="title-text">ANU 3D Printing</span>
+      </div>
+    </div>
+
+    <!-- RIGHT CART -->
+    <a href="cart.html" class="cart-link">
+   🛒 <span class="cart-count" id="cartCount">0</span>
+ </a>
+
+  </div>
+</header>
+
+<!-- PAGE -->
+<div class="page-wrapper">
+  <div class="container">
+
+    <!-- IMAGE -->
+    <div class="left-section">
+      <img src="https://i.postimg.cc/QdMQBmwt/Whats-App-Image-2025-11-11-at-21-44-53-fcc15956.jpg" class="main-media">
+    </div>
+
+    <!-- DETAILS -->
+    <div class="right">
+      <h2 class="product-title" id="title"></h2>
+
+      <div class="final-price">₹<span id="current"></span></div>
+
+      <div class="sub-price-line">
+        <span class="old-price">₹<span id="mrp"></span></span>
+        <span class="discount">( <span id="discount"></span>% OFF )</span>
+      </div>
+
+      <p class="features">
+        ✓ Perfect for Couples & Gifts<br>
+        ✓ Beautiful Warm Lighting<br>
+        ✓ Engraved Forever Memory
+      </p>
+
+      <div class="btn-row">
+        <a href="am12.html" class="button buy">Buy Now</a>
+        <a href="cart.html" class="button cart">Add to Cart</a><br>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="bottom-nav">
+  <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+  <a href="profile.html"><i class="fa-solid fa-user"></i>Profile</a>
+  <a href="index.html"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+  <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+  <a href="contacts.html"><i class="fa-solid fa-headset"></i>Help</a>
+</div>
+
+<script>
+const productData = { name: "Name Stand", mrp: 200, current: 150 };
+
+window.onload = () => {
+  document.getElementById("title").textContent = productData.name;
+  document.getElementById("current").textContent = productData.current;
+  document.getElementById("mrp").textContent = productData.mrp;
+
+  let discount = Math.round(((productData.mrp - productData.current) / productData.mrp) * 100);
+  document.getElementById("discount").textContent = discount;
+}
+</script>
+
+</body>
+</html>

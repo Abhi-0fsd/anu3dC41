@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      padding: 30px;
+      background: #eef2ff;
+    }
+    .box {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.2);
+    }
+    input, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    button {
+      background: #6a0dad;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #520c9b;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Signup</h2>
+
+  <input id="ph" placeholder="+91XXXXXXXXXX">
+
+  <button onclick="sendOtp()">Send OTP</button>
+</div>
+
+<script>
+async function sendOtp() {
+  const phone = document.getElementById("ph").value;
+
+  if (!phone) {
+    alert("Enter phone number");
+    return;
+  }
+
+  // SAVE PHONE NUMBER (JOIN POINT)
+  localStorage.setItem("phone", phone);
+
+  try {
+    const res = await fetch("http://localhost:8080/otp/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phoneNumber: phone })
+    });
+
+    alert(await res.text());
+
+    // GO TO OTP PAGE
+    window.location.href = "index.html";
+
+  } catch (e) {
+    alert("OTP send failed");
+  }
+}
+</script>
+
+</body>
+</html>
